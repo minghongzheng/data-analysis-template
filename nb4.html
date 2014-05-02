@@ -1842,6 +1842,843 @@ pdflatex NB4_report.tex</code></pre>
 <li>etc.</li>
 </ul>
 <p>I advise you to work at least in pairs for each project notebook, as you did for the homework assignments. Of course, all team members may participate to each notebook.</p>
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Project-Objective">Project Objective<a class="anchor-link" href="#Project-Objective">&#182;</a></h1>
+</div>
+
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Our topic for the final project is to explore whether gender affects the employment rate and the unemployment rate in different states during the recent 10 years, and see whether there exists gener discrimination in the job market.</strong></p>
+<ol style="list-style-type: decimal">
+<li>Whether there is gender discrimination in job markets. Do employers favor male over female?</li>
+<li>Which states have the most severe discrimination and which states have the least discrimination?</li>
+<li>Whether other factors, such as age and race affect the discrimination situation?</li>
+<li>Focusing on California, how is it compared with the average?</li>
+<li>Focusing on California, what is the trend of change in the past 10 years?</li>
+</ol>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[1]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%</span><span class="k">load_ext</span> <span class="n">rmagic</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[4]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Data-Gathering">Data Gathering<a class="anchor-link" href="#Data-Gathering">&#182;</a></h1>
+</div>
+
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The data of State Employment and Unemployment statistics from 2004 to 2013 is downloaded from the Bureau of Labor Statistics website. Their file formats are xls and then we save them in subdirectory &quot;raw&quot; load data into dataFrame. Then we rename every variable: <strong>Group Code</strong>,<strong>State</strong>,<strong>Group</strong>,<strong>Population</strong>,<strong>Total number of labor</strong>,<strong>Percentage of labor</strong>, <strong>Totoal number of employment</strong>,<strong>Employment rate</strong>,<strong>Total number of unemloyment</strong>,<strong>Unemployment rate</strong> and drop the unnecessary rows. Finally, we use the script file to load other xls files into dataframe and save them as csv files.</p>
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Data-Cleaning">Data Cleaning<a class="anchor-link" href="#Data-Cleaning">&#182;</a></h1>
+</div>
+
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-A-Focusing-on-the-data-of-2013-for-all-states">Part A Focusing on the data of 2013 for all states<a class="anchor-link" href="#Part-A-Focusing-on-the-data-of-2013-for-all-states">&#182;</a></h2>
+</div>
+
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since we have 3 different questions to answer: general gender discrimination, gender discrimination in different age groups, gender discrimination in different races, 3 dataframe will be created, one for each question.</p>
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Race-Group:-(We-use-boxplot-to-visualize)">Race Group: (We use boxplot to visualize)<a class="anchor-link" href="#Race-Group:-(We-use-boxplot-to-visualize)">&#182;</a></h3>
+</div>
+
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[17]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;summary general.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-17-0106d929bad1&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>Image<span class="ansiyellow">(</span><span class="ansiblue">&apos;summary general.jpeg&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Image&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see from the boxplot,there is a big difference between the employment rate of men and women. The employment rates of Men is in generally about 13% higher than the employment rates of Women. But the unemployment rate does not make that much difference, about only 2 percent.</p>
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Age-Group:">Age Group:<a class="anchor-link" href="#Age-Group:">&#182;</a></h3>
+</div>
+
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[16]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;summary by age.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-16-0811d0f07896&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>Image<span class="ansiyellow">(</span><span class="ansiblue">&apos;summary by age.jpeg&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Image&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As shown in the boxplot above, for both men and women, the employment rate increases as age increases until the 35 to 44 years age group where it reachs the highest value, and then it decreases as age gets larger. The unemployment is greatest in the under 19 years age group and the distribution is disperse, which is fairly reasonable. And then it decreases all the time but the rate of decreasing is getting smaller and smaller.</p>
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Race-Group:">Race Group:<a class="anchor-link" href="#Race-Group:">&#182;</a></h3>
+</div>
+
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[18]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;summary by race.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-18-05ebb7caf5f6&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>Image<span class="ansiyellow">(</span><span class="ansiblue">&apos;summary by race.jpeg&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Image&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hispanic or Latino ethnicity men has the greatest employment rate and the second greatest group is White men, while Black or African American, women has the lowest employment rate. And about the unemployment rate, Black or African American women and men groups have the greatest unemployment rate while White women and men have the lowest unemployment.</p>
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-B-using-data-in-2004-2013,-focusing-on-California-to-see-the-trend">Part B using data in 2004-2013, focusing on California to see the trend<a class="anchor-link" href="#Part-B-using-data-in-2004-2013,-focusing-on-California-to-see-the-trend">&#182;</a></h2>
+</div>
+
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[19]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;summary CA general.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-19-264c93e81b2d&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>Image<span class="ansiyellow">(</span><span class="ansiblue">&apos;summary CA general.jpeg&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Image&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The avergae employment rate of California men is 65% and that of California women is 52%, however, the distribution of California men is more disperse. Although there is a still big difference, it's almost the same as the difference in gernal. So the discrimination situation deos not get worse. On the other hand,the distribution of the unemployment rate does not make much difference.</p>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[20]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;summary CA age.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-20-61544b7cfbbb&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>Image<span class="ansiyellow">(</span><span class="ansiblue">&apos;summary CA age.jpeg&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Image&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The age group situation of Califonia is basicall the same as that of the year 2013. For both men and women, the employment rate increases as age increases until the 35 to 44 years age group where it reachs the highest value, and then it decreases as age gets larger. The unemployment is greatest in the under 19 years age group and then it decreases all the time except for that the distribution of the under 19 years age gourp.</p>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[21]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;summary CA by race.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-21-209a444d07b8&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>Image<span class="ansiyellow">(</span><span class="ansiblue">&apos;summary CA by race.jpeg&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Image&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The race group situation of Califonia is also basicall the same as that of the year 2013.</p>
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Part-C:-Employment-rate-change-trend-in-the-past-10-years-in-California">Part C: Employment rate change trend in the past 10 years in California<a class="anchor-link" href="#Part-C:-Employment-rate-change-trend-in-the-past-10-years-in-California">&#182;</a></h2>
+</div>
+
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[22]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;general trend.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-22-ef155c350596&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>Image<span class="ansiyellow">(</span><span class="ansiblue">&apos;general trend.jpeg&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Image&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The graph above was made to show the employment rate changes from 2004 to 2013 in California. The black line is for Men, while the red line is for Women. The general patterns of the employment rate of both men and women are basically the same. The employment rate changes relatively stable from year 2004 to 2008. Then it starts to decrease rapidly until year 2010, which is probably because of the financial crisis staring from 2008. And the employment finally starts to increase slowly since 2010. However, the employment of men is always about 15% higher than that of women.</p>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;trend by age group.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In age group &quot;16-19 years&quot;, women has higher employment rate than men. This is the only age group that women get employed more. This is possibly because more guys than girls are going to high schools or colleges at that age instead of working.</p>
+<p>Also, in 2008, most of the groups' employment rates are decreasing due to the financial crisis. However, the age group of &quot;65 years old and above&quot; had an increasing trend.</p>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[23]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="n">Image</span><span class="p">(</span><span class="s">&#39;trend by age group.jpeg&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_pyerr">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-23-f05a7f3d4633&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">----&gt; 1</span><span class="ansiyellow"> </span>Image<span class="ansiyellow">(</span><span class="ansiblue">&apos;trend by age group.jpeg&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Image&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In all four race groups, men have higher employment rate than women in the same race group.</p>
+<p>The employment rate difference is largest in Latinos, possible due to the fact that many Latino women are busy raising their children. The second largest difference is found in Whites, while the employment rate difference in Black people is the smallest</p>
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[3]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%</span><span class="k">load_ext</span> <span class="n">rmagic</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[12]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%%</span><span class="k">bash</span>
+<span class="n">ls</span>
+<span class="n">ipython</span> <span class="n">nbconvert</span> <span class="n">NB4_project_report</span><span class="o">.</span><span class="n">ipynb</span> <span class="o">--</span><span class="n">to</span> <span class="n">latex</span>
+<span class="n">pdflatex</span> <span class="n">NB4_report</span><span class="o">.</span><span class="n">tex</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_stream output_stdout">
+<pre>
+NB1_data_gathering.ipynb
+NB2_data_cleaning.ipynb
+NB3_data_analysis.ipynb
+NB4_project_report_files
+NB4_project_report.ipynb
+NB4_project_report.tex
+README.md
+texput.log
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian)
+ restricted \write18 enabled.
+entering extended mode
+! I can&apos;t find file &#96;NB4_report.tex&apos;.
+&lt;*&gt; NB4_report.tex
+                  
+(Press Enter to retry, or Control-D to exit)
+Please type another input file name: 
+! Emergency stop.
+&lt;*&gt; NB4_report.tex
+                  
+!  ==&gt; Fatal error occurred, no output PDF file produced!
+Transcript written on texput.log.
+
+</pre>
+</div>
+</div>
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_stream output_stderr">
+<pre>
+[NbConvertApp] Using existing profile dir: u&apos;/home/oski/.config/ipython/profile_default&apos;
+[NbConvertApp] Converting notebook NB4_project_report.ipynb to latex
+[NbConvertApp] Support files will be in NB4_project_report_files/
+[NbConvertApp] Loaded template latex_article.tplx
+[NbConvertApp] Writing 32305 bytes to NB4_project_report.tex
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[14]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%%</span><span class="k">bash</span>
+<span class="n">ls</span>
+<span class="n">pdflatex</span> <span class="n">NB4_project_report</span><span class="o">.</span><span class="n">tex</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_stream output_stdout">
+<pre>
+NB1_data_gathering.ipynb
+NB2_data_cleaning.ipynb
+NB3_data_analysis.ipynb
+NB4_project_report_files
+NB4_project_report.ipynb
+NB4_project_report.tex
+README.md
+texput.log
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian)
+ restricted \write18 enabled.
+entering extended mode
+(./NB4_project_report.tex
+LaTeX2e &lt;2011/06/27&gt;
+Babel &lt;3.9h&gt; and hyphenation patterns for 2 languages loaded.
+(/usr/local/lib/python2.7/dist-packages/sphinx/texinputs/sphinxhowto.cls
+
+LaTeX Warning: You have requested document class &#96;/usr/local/lib/python2.7/dist
+-packages/sphinx/texinputs/sphinxhowto&apos;,
+               but the document class provides &#96;sphinxhowto&apos;.
+
+Document Class: sphinxhowto 2009/06/02 Document class (Sphinx HOWTO)
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo)))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/import/import.sty)
+(/usr/local/lib/python2.7/dist-packages/sphinx/texinputs/fncychap.sty
+
+LaTeX Warning: You have requested package &#96;/usr/local/lib/python2.7/dist-packag
+es/sphinx/texinputs/fncychap&apos;,
+               but the package provides &#96;fncychap&apos;.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/lib/python2.7/dist-packages/sphinx/texinputs/sphinx.sty
+
+LaTeX Warning: You have requested package &#96;/usr/local/lib/python2.7/dist-packag
+es/sphinx/texinputs/sphinx&apos;,
+               but the package provides &#96;sphinx&apos;.
+
+(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
+(/usr/share/texlive/texmf-dist/tex/latex/fancybox/fancybox.sty
+Style option: &#96;fancybox&apos; v1.4 &lt;2010/05/15&gt; (tvz)
+) (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tabulary/tabulary.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the &#96;?&apos; option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Style option: &#96;fancyvrb&apos; v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+&lt;2008/02/07&gt; (tvz) (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+)) (/usr/share/texlive/texmf-dist/tex/latex/threeparttable/threeparttable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/mdwtools/footnote.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg)))
+(/usr/share/texlive/texmf-dist/tex/plain/misc/pdfcolor.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty))
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/hypcap.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/ucs.sty
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-global.def))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/needspace/needspace.sty)
+(/usr/share/texmf/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texmf/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texmf/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-common.tex)
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-latex.def
+(/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty))
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfrcs.code.tex))
+(/usr/share/texmf/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texmf/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex))
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgf.cfg)
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def)))
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex)
+(/usr/share/texmf/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex))
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg))
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(/usr/share/texmf/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathparser.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.random.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.round.code.tex)
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex)))
+(/usr/share/texmf/tex/generic/pgf/math/pgfmathfloat.code.tex))
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorequick.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex))
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex)
+(/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex)))
+(/usr/share/texmf/tex/generic/pgf/modules/pgfmoduleshapes.code.tex)
+(/usr/share/texmf/tex/generic/pgf/modules/pgfmoduleplot.code.tex)
+(/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty)
+(/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty))
+(/usr/share/texmf/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texmf/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texmf/tex/generic/pgf/utilities/pgffor.code.tex))
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+(/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex)
+(/usr/share/texmf/tex/generic/pgf/modules/pgfmodulematrix.code.tex)
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopat
+hs.code.tex)))
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.
+code.tex)
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrow
+s.code.tex
+(/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryarrows.code.tex))
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshado
+ws.code.tex
+(/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfadin
+gs.code.tex
+(/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryfadings.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/latex/mdframed/mdframed.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3names.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3bootstrap.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3basics.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3expan.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3tl.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3seq.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3int.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3quark.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3prg.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3clist.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3token.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3prop.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3msg.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3file.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3skip.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3keys.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3fp.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3box.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3coffins.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3color.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3luatex.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3candidates.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref-abspage.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref-base.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/mdframed/md-frame-1.mdf))
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/trimclip.sty
+(/usr/share/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/tc-pdftex.def))
+(/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grffile.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg))
+Writing index file NB4_project_report.idx
+No file NB4_project_report.aux.
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/ucsencs.def)
+
+Package ucs Warning: ***************************
+(ucs)                You seem to have loaded inputencoding utf8
+(ucs)                (LaTeX kernel UTF-8) instead of utf8x (ucs.sty UTF-8).
+(ucs)                Probably you are compiling a document written for a
+(ucs)                pre-august-2004 ucs.sty.
+(ucs)                ***************************
+(ucs)                Please use \usepackage[utf8x]{inputenc} instead of
+(ucs)                \usepackage[utf8]{inputenc}.
+(ucs)                ***************************
+(ucs)                If you should really want to use ucs.sty and kernel&apos;s
+(ucs)                utf8.def together, use \usepackage[utf8x,utf8]{inputenc}
+(ucs)                to disable compatibility mode
+(ucs)                ***************************
+(ucs)                Activating compatibility mode.
+(ucs)                ***************************
+(ucs)                 on input line 227.
+
+(/usr/share/texlive/texmf-dist/tex/latex/ucs/utf8x.def)
+ABD: EveryShipout initializing macros
+Underfull \hbox (badness 10000) in paragraph at lines 231--231
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
+
+Package xcolor Warning: Incompatible color definition on input line 245.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+
+Package xcolor Warning: Incompatible color definition on input line 260.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+
+Package xcolor Warning: Incompatible color definition on input line 283.
+
+
+Package xcolor Warning: Incompatible color definition on input line 283.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+Package xcolor Warning: Incompatible color definition on input line 371.
+
+
+Package xcolor Warning: Incompatible color definition on input line 371.
+
+
+Package xcolor Warning: Incompatible color definition on input line 374.
+
+
+Package xcolor Warning: Incompatible color definition on input line 374.
+
+
+!pdfTeX error: pdflatex (file ./NB4_project_report_files/NB4_project_report_12_
+0.png): libpng: internal error
+ ==&gt; Fatal error occurred, no output PDF file produced!
+
+</pre>
+</div>
+</div>
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_stream output_stderr">
+<pre>
+libpng error: Not a PNG file
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[15]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%%</span><span class="k">bash</span>
+<span class="n">ls</span>
+</pre></div>
+
+</div>
+</div>
+
+<div class="vbox output_wrapper">
+<div class="output vbox">
+
+
+<div class="hbox output_area"><div class="prompt"></div>
+<div class="box-flex1 output_subarea output_stream output_stdout">
+<pre>
+NB1_data_gathering.ipynb
+NB2_data_cleaning.ipynb
+NB3_data_analysis.ipynb
+NB4_project_report.aux
+NB4_project_report_files
+NB4_project_report.idx
+NB4_project_report.ipynb
+NB4_project_report.log
+NB4_project_report.out
+NB4_project_report.tex
+README.md
+texput.log
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight-ipynb"><pre class="ipynb">
+</pre></div>
+
+</div>
+</div>
+
 </div></p>
             </div>
             <!-- /.entry-content -->
